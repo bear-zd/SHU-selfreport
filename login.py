@@ -35,7 +35,7 @@ def login(username, password):
     sess = requests.Session()
     while True:
         try:
-            r = sess.get('https://selfreport.shu.edu.cn/Default.aspx')
+            r = sess.get('https://newsso.shu.edu.cn/login/eyJ0aW1lc3RhbXAiOjE2MTg5NzAyNTE5MzMxMjM5ODgsInJlc3BvbnNlVHlwZSI6ImNvZGUiLCJjbGllbnRJZCI6IldVSFdmcm50bldZSFpmelE1UXZYVUNWeSIsInNjb3BlIjoiMSIsInJlZGlyZWN0VXJpIjoiaHR0cHM6Ly9zZWxmcmVwb3J0LnNodS5lZHUuY24vTG9naW5TU08uYXNweD9SZXR1cm5Vcmw9JTJmTXlNZXNzYWdlcy5hc3B4Iiwic3RhdGUiOiIifQ==')
             code = r.url.split('/')[-1]
             url_param = eval(base64.b64decode(code).decode("utf-8"))
             state = url_param['state']

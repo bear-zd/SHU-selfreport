@@ -35,14 +35,14 @@ def login(username, password):
     sess = requests.Session()
     while True:
         try:
-            r = sess.get('https://newsso.shu.edu.cn/login/eyJ0aW1lc3RhbXAiOjE2MTg5NzAyNTE5MzMxMjM5ODgsInJlc3BvbnNlVHlwZSI6ImNvZGUiLCJjbGllbnRJZCI6IldVSFdmcm50bldZSFpmelE1UXZYVUNWeSIsInNjb3BlIjoiMSIsInJlZGlyZWN0VXJpIjoiaHR0cHM6Ly9zZWxmcmVwb3J0LnNodS5lZHUuY24vTG9naW5TU08uYXNweD9SZXR1cm5Vcmw9JTJmTXlNZXNzYWdlcy5hc3B4Iiwic3RhdGUiOiIifQ==')
+            r = sess.get('https://selfreport.shu.edu.cn/Default.aspx')
             code = r.url.split('/')[-1]
             url_param = eval(base64.b64decode(code).decode("utf-8"))
             state = url_param['state']
             sess.post(r.url, data={
                 'username': username,
                 'password': encryptPass(password)
-            })
+            }, allow_redirects=False)
             messageBox = sess.get(f'https://newsso.shu.edu.cn/oauth/authorize?response_type=code&client_id=WUHWfrntnWYHZfzQ5QvXUCVy&redirect_uri=https%3a%2f%2fselfreport.shu.edu.cn%2fLoginSSO.aspx%3fReturnUrl%3d%252fDefault.aspx&scope=1&state={state}')
             if 'tz();' in messageBox.text:  # 调用tz()函数在首层提醒未读
                 myMessages(sess)
